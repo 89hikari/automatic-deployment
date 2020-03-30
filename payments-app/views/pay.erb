@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul>
+        <h1>Оплата</h1>
+        <li class="list-group-item" style="width: 18rem;"><%= "Имя: #{@pay.fullname.name}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Фамилия: #{@pay.fullname.lastn}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Отчество: #{@pay.fullname.patr}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Адрес: ул. #{@pay.adr.street} д. #{@pay.adr.house}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Общая сумма оплаты: #{@pay.ob_sum}" %></li>  
+        <li class="list-group-item" style="width: 18rem;"><%= "Внесённая сумма оплаты: #{@pay.vn_sum}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Осталось заплатить: #{@pay.ob_sum.to_i-@pay.vn_sum}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Тип счёта: #{@pay.kind}" %></li>
+        <li class="list-group-item" style="width: 18rem;"><%= "Месяц платежа: #{@pay.mon}" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<form method="post">
+  <div class="form-group">
+    <label for="vn_sum">Сумма для внесения</label>
+    <input type="number" class="list-group-item" id="vn_sum" name="vn_sum" placeholder="1234">
+    <% if @errors %>
+      <%= @errors%>
+    <% end %>
+  </div>
+  <button type="submit" class="btn btn-outline-primary" style="padding: 15px;">Оплатить</button>
+</form>

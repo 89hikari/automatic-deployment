@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @pays_database.each do |pay| %>
+          <% if pay.kind.to_s.strip == 'Telephone'.to_s.strip %>
+            <li class="list-group-item" style="width: 18rem;"><%= "Тип счёта: #{pay.kind}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Месяц платежа: #{pay.mon}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Сумма на счёте: #{pay.vn_sum}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Нужно еще заплатить: #{pay.ob_sum.to_i-pay.vn_sum.to_i}" %></li>
+            <br /> <br />
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <% @pays_database.each do |pay| %>
+          <% if pay.kind.to_s.strip == 'Rent'.to_s.strip %>
+            <li class="list-group-item" style="width: 18rem;"><%= "Тип счёта: #{pay.kind}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Месяц платежа: #{pay.mon}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Сумма на счёте: #{pay.vn_sum}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Нужно еще заплатить: #{pay.ob_sum.to_i-pay.vn_sum.to_i}" %></li>
+            <br /> <br />
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <% @pays_database.each do |pay| %>
+          <% if pay.kind.to_s.strip == 'ElectricPower'.to_s.strip %>
+            <li class="list-group-item" style="width: 18rem;"><%= "Тип счёта: #{pay.kind}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Месяц платежа: #{pay.mon}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Сумма на счёте: #{pay.vn_sum}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Нужно еще заплатить: #{pay.ob_sum.to_i-pay.vn_sum.to_i}" %></li>
+            <br /> <br />
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<h1>Добавление платежа</h1>
+<form method="post">
+  <div class="form-row">
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="name">Имя</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Введите имя человека">
+      <% if @errors %>
+        <%= @errors[:name] %>
+      <% end %>
+    </div>
+
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="lastn">Фамилия</label>
+      <input type="text" class="form-control" name="lastn" id="lastn" placeholder="Введите фамилию">
+      <% if @errors %>
+        <%= @errors[:lastn] %>
+      <% end %>
+    </div>
+
+    <div class="list-group-item" style="width: 18rem;"  >
+      <label for="patr">Отчество</label>
+      <input type="text" class="form-control" name="patr" id="patr" placeholder="Введите отчество">
+      <% if @errors %>
+        <%= @errors[:patr] %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="street">Улица</label>
+      <input type="text" class="form-control" name="street" id="street" placeholder="Введите улицу">
+      <% if @errors %>
+        <%= @errors[:adres_1] %>
+      <% end %>
+    </div>
+
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="house">Дом</label>
+      <input type="number" class="form-control" name="house" id="house" placeholder="Введите номер дома">
+      <% if @errors %>
+        <%= @errors[:adres] %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="mon">Месяц</label>
+      <select class="form-control" id="mon" name="mon">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>    
+        <option>9</option>
+        <option>10</option> 
+        <option>11</option>
+        <option>12</option>
+      </select>
+    </div>
+
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="ob_sum">Сумма оплаты</label>
+      <input type="number" class="form-control" name="ob_sum" id="ob_sum" placeholder="Сумма оплаты">
+      <% if @errors %>
+        <%= @errors[:sum] %>
+      <% end %>
+    </div>
+
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="kind">Вид</label>
+      <select id="kind" name="kind" class="form-control">
+        <option>Telephone</option>
+        <option>Rent</option>
+        <option>ElectricPower</option>
+      </select>
+    </div>
+  </div>
+  <br /><button type="submit" class="btn btn-outline-primary" style="padding: 15px;">Добавить платёж</button>
+  <% if @ishere %>
+    <%= @ishere %>
+  <% end %>
+</form>

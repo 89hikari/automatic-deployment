@@ -1,0 +1,19 @@
+<h2>Список должников</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @dolg.each do |elem| %>
+            <li class="list-group-item" style="width: 18rem;"><%= "Имя: #{elem.fullname.name}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Фамилия: #{elem.fullname.lastn}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Отчество: #{elem.fullname.patr}" %></li>           
+            <li class="list-group-item" style="width: 18rem;"><%= "Вид счёта: #{elem.kind}" %></li>             
+          <br />
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<% if @dolg.empty?%>
+  <h2>Нет должников</h2>
+<% end %>

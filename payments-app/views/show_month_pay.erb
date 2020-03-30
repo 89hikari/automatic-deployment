@@ -1,0 +1,15 @@
+<h2>Список людей, которым не выставлен счёт</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @pay_month_data_base.each do |person| %>
+            <li class="list-group-item" style="width: 18rem;"><%= "Имя: #{person.name}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Фамилия: #{person.lastn}" %></li>
+            <li class="list-group-item" style="width: 18rem;"><%= "Отчество: #{person.patr}" %></li>
+          <br /> <br />
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

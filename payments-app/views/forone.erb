@@ -1,0 +1,21 @@
+<h2 class="list-group-item" style="width: 35rem;">Список счетов для этого человека</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @pays_database.each do |pay| %>
+          <li class="list-group-item" style="width: 18rem;" id=name name=name><%= "Имя: #{pay.fullname.name}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=lastn name=lastn><%= "Фамилия: #{pay.fullname.lastn}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=patr name=patr><%= "Отчество: #{pay.fullname.patr}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=adr name=adr><%= "Адрес: ул.#{pay.adr.street} д.#{pay.adr.house}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=ob_sum name=vn_sum><%= "Общая сумма оплаты: #{pay.ob_sum}" %></li>  
+          <li class="list-group-item" style="width: 18rem;" id=vn_sum name=vn_sum><%= "Внесённая сумма оплаты: #{pay.vn_sum}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=mon name=mon><%= "Месяц платежа: #{pay.mon}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=kind name=kind><%= "Тип счёта: #{pay.kind}" %></li>
+          <br /> <br />
+        <% end %>
+      </ul>
+  </div>
+</div>
+<% if @pays_database.empty %>
+  <h2>Список пуст</h2>
+<% end %>

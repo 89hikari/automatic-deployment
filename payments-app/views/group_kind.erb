@@ -1,0 +1,27 @@
+<h2>Группировка по типу</h2>
+<form method="post">
+  <div class="form-row">
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="name">Имя</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Имя">
+      <% if @errors %>
+        <%= @errors %>
+      <% end %>
+    </div>
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="lastn">Фамилия</label>
+      <input type="text" class="form-control" id="lastn" name="lastn" placeholder="Фамилия">
+      <% if @errors %>
+        <%= @errors %>
+      <% end %>
+    </div>
+    <div class="list-group-item" style="width: 18rem;">
+      <label for="patrc">Отчество</label>
+      <input type="text" class="form-control" id="patr" name="patr" placeholder="Отчество">
+      <% if @errors %>
+        <%= @errors %>
+      <% end %>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-outline-primary" style="padding: 15px;">Показать</button>
+</form>

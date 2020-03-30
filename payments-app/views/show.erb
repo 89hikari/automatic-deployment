@@ -1,0 +1,28 @@
+<div class="container">
+<h2>Список платежей</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @pays_database.each_with_index do |el, index| %>
+          <h3 class="list-group-item" style="width: 10rem;"><%= "#{index+1}" %></h3>
+          <li class="list-group-item" style="width: 18rem;" id=name name=name><%= "Имя: #{el.fullname.name}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=lastn name=lastn><%= "Фамилия: #{el.fullname.lastn}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=patr name=patr><%= "Отчество: #{el.fullname.patr}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=adr name=adr><%= "Адрес: ул.#{el.adr.street} д.#{el.adr.house}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=mon name=mon><%= "Месяц: #{el.mon}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=ob_sum name=ob_sum><%= "Общая сумма оплаты: #{el.ob_sum}" %></li>  
+          <li class="list-group-item" style="width: 18rem;" id=vn_sum name=vn_sum><%= "Внесённая сумма оплаты: #{el.vn_sum}" %></li>
+          <li class="list-group-item" style="width: 18rem;" id=kind name=kind><%= "Вид счёта: #{el.kind}" %></li>
+          <% if el.vn_sum != el.ob_sum.to_i %>
+          <a class="btn btn-outline-primary" style="padding: 15px;" href='/pay/<%=index%>' id="pay-<%= index %>" role="button" >Оплатить</a>
+          <% end %>
+          <a class="btn btn-outline-primary" style="padding: 15px;" href='/delete_pay/<%=index%>' id="delete-<%= index %>" role="button" >Удалить</a>
+          <br />
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<% if @pays_database.empty %>
+  <h3>Список пуст</h3>
+<% end %>
