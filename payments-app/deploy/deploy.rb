@@ -22,24 +22,30 @@ class Deploy
   end
 
   def install_ruby
+    checked_run('sudo', 'apt-get', 'update')
+    checked_run('sudo', 'apt-get', 'install', '-y', 'build-essential')
     archive_path = '/tmp/ruby-install-0.7.0.tar.gz'
     checked_run('wget', '-O', archive_path, 'https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz')
     checked_run('tar', '-C', '/tmp', '-xzvf', archive_path)
-    # ruby_install_dir = '/tmp/ruby-install-0.7.0'
-    # checked_run('sudo', 'make', 'install')
-    # checked_run('ruby-install', '-L')
-    # checked_run('ruby-install', '--jobs=4', 'ruby', REQUIRED_RUBY_VERSION)
+     ruby_install_dir = '/tmp/ruby-install-0.7.0'
+     checked_run('sudo', 'make', 'install', dir: ruby_install_dir)
+     checked_run('sudo', 'ruby-install', '-L')
+     checked_run('sudo', 'ruby-install', '--jobs=4', 'ruby', REQUIRED_RUBY_VERSION)
   end
 
-  def checked_run(*args)
+  def checked_run(*args, dir: nil)
     command = args.join(' ')
     puts "Running #{command}"
-    result = @connection.exec!(command)
-    puts result
-    if result.exitstatus != 0
-      puts "Command #{command} finished with error"
-      exit(1)
+    if !dir.nil?
+      command = "cd #{dir} && #{command}"
     end
+    @connection.exec!(command) do |ch, channel, data|
+      puts data
+    end
+    # if result.exitstatus != 0
+    #   puts "Command #{command} finished with error"
+    #   exit(1)
+    # end
   end
 
   def patch_path
