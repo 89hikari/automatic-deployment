@@ -12,3 +12,7 @@ gem 'simplecov'
 gem 'sinatra'
 gem 'sinatra-reloader'
 gem 'sinatra-contrib'
+
+group :deployment do
+  gem 'net-ssh'
+end
