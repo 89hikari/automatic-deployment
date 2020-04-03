@@ -14,5 +14,8 @@ gem 'sinatra-reloader'
 gem 'sinatra-contrib'
 
 group :deployment do
+  gem 'net-scp'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
   gem 'net-ssh'
 end
