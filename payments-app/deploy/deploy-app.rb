@@ -123,7 +123,7 @@ class Deploy
   end
 
   def nginx_set
-    checked_run('sudo', 'apt-get', 'install', 'nginx')
+    checked_run('sudo', 'apt-get', 'install', '-y', 'nginx')
     temp_dir = '/tmp/temp-dir'
     checked_run('sudo', 'rm', '-rf', temp_dir)
     puts 'Uploading'
@@ -131,7 +131,7 @@ class Deploy
     checked_run('sudo', 'cp', '/tmp/temp-dir/site', '/etc/nginx/sites-available/')
     checked_run('sudo', 'rm', '/etc/nginx/sites-available/default')
     checked_run('sudo', 'ln', '-s', '/etc/nginx/sites-available/site', '/etc/nginx/sites-enabled/site')
-    checked_run('sudo', 'rm', 'etc/nginx/sites-enabled/default')
+    checked_run('sudo', 'rm', '/etc/nginx/sites-enabled/default')
     checked_run('sudo', 'systemctl', 'restart', 'nginx')
     checked_run('sudo', 'nginx', '-t')
   end

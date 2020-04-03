@@ -13,6 +13,7 @@ class App < Sinatra::Base
 
   set :bind, '0.0.0.0'
   configure do
+    set :static, false
     set :pays_database, Input.read_file
   end
 
