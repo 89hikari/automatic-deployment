@@ -13,17 +13,18 @@ APP_USER = 'sinatra-app'
 
 
 class Deploy
-  def deploy(host, user, password)
+  def deploy(user, host, password)
     Net::SSH.start(host, user, password: password) do |connection|
       @connection = connection
       @scp = connection.scp
-     # install_ruby
+      install_ruby
       copy_application_files
       install_required_gems(APP_DIR)
       create_app_user(APP_USER, APP_DIR)
       setup_systemd_service(APP_DIR)
       enable_systemd_service
       restart_systemd_service
+      nginx_set
     end
   end
 
@@ -80,6 +81,8 @@ class Deploy
   end
 
   def install_required_gems(application_directory)
+    checked_run('sudo', File.join(ruby_installation_path, 'gem'), 'install', 'bundler')
+    checked_run('sudo', File.join(ruby_installation_path, 'bundle'), 'install')
     checked_run('sudo', File.join(ruby_installation_path, 'bundle'),
       'install', '--gemfile', File.join(application_directory, 'Gemfile'),
       '--jobs=4', '--retry=3',
@@ -119,6 +122,20 @@ class Deploy
     checked_run('sudo', 'systemctl', 'daemon-reload')
   end
 
+  def nginx_set
+    checked_run('sudo', 'apt-get', 'install', 'nginx')
+    temp_dir = '/tmp/temp-dir'
+    checked_run('sudo', 'rm', '-rf', temp_dir)
+    puts 'Uploading'
+    @scp.upload!(File.expand_path('../nginx', __dir__), temp_dir, recursive: true)
+    checked_run('sudo', 'cp', '/tmp/temp-dir/site', '/etc/nginx/sites-available/')
+    checked_run('sudo', 'rm', '/etc/nginx/sites-available/default')
+    checked_run('sudo', 'ln', '-s', '/etc/nginx/sites-available/site', '/etc/nginx/sites-enabled/site')
+    checked_run('sudo', 'rm', 'etc/nginx/sites-enabled/default')
+    checked_run('sudo', 'systemctl', 'restart', 'nginx')
+    checked_run('sudo', 'nginx', '-t')
+  end
+
   def enable_systemd_service
     checked_run('sudo', 'systemctl', 'enable', SERVICE_NAME)
   end
@@ -128,7 +145,15 @@ class Deploy
   end
 end
 
+def host_ip(ip)
+
+end
+
 if __FILE__ == $0
+  if ARGV.length != 3
+    puts "We need exactly 3 agruments (user, 'host's IP', password)"
+    exit
+  end
   deployer = Deploy.new
-  deployer.deploy('192.168.1.114', 'user', 'user')
+  deployer.deploy(ARGV[0], ARGV[1], ARGV[2])
 end
